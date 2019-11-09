@@ -1,11 +1,4 @@
 var myIndex = 0;
-var ProductName = "Product Name";
-var Quantity = "Quantity";
-var startingBid = "Starting Bid";
-var currentBid = "Current Bid";
-var rating = "Rating";
-
-
 
 
 function getData(){
