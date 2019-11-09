@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="customerproduct.css">
 </head>
 
-<body>
+<body onload="getData()">
   <div class="row">
     <section class="section">
       <header>
@@ -18,23 +18,23 @@
     <table class="product">
       <tr>
         <td>Product Name</td>
-        <td><p align="right" class="tx1"><font color="black">Test Name</p></td>
+        <td><p align="right" id="Pname" class="tx1"><font color="black">Test Name</p></td>
       </tr>
       <tr>
         <td>Quantity</td>
-        <td><p align="right" class="tx1"><font color="black">Test Name</p></td>
+        <td><p align="right" id="Quantity" class="tx1"><font color="black">Test Name</p></td>
       </tr>
       <tr>
         <td>Starting Bid</td>
-        <td><p align="right" class="tx1"><font color="black">Test Name</p></td>
+        <td><p align="right" id="Sbid" class="tx1"><font color="black">Test Name</p></td>
       </tr>
       <tr>
         <td>Current Bidding</td>
-        <td><p align="right" class="tx1"><font color="black">Test Name</p></td>
+        <td><p align="right" id="Cbid" class="tx1"><font color="black">Test Name</p></td>
       </tr>
       <tr>
         <td>Location</td>
-        <td><p align="right" class="tx1"><font color="black">Test Name</p></td>
+        <td><p align="right" id="Location" class="tx1"><font color="black">Test Name</p></td>
       </tr>
     </table>
     <button class="submit" onclick="openForm()">Place Bid</button>
@@ -66,6 +66,7 @@
     <i class="wave"></i>
   </section>
 </div>
+<script src="home.js"></script>
 <script src="customerproduct.js"></script>
 </body>
 

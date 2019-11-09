@@ -16,3 +16,30 @@ function openForm() {
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
+
+
+/*Changing Inner Text*/
+
+
+var number=localStorage.getItem('data');
+// alert(number);
+// var number = '5dbc6e8152bdce05e5768367';
+
+function getData(){
+    fetch('http://localhost:3000/farmerProduct/item')
+        .then(response => response.json())
+        .then(data => transfer(data))
+}
+
+function transfer(val){
+    for(var i = 0; i < val.length; i++) {
+        var obj = val[i];
+        if(obj._id === number){
+            document.getElementById('Pname').innerText = obj.ProductName;
+            document.getElementById('Quantity').innerText = obj.Quantity;
+            document.getElementById('Sbid').innerText = obj.StartingBid;
+            // document.getElementById('Pname').innerText = obj.ProductName;
+            document.getElementById('Location').innerText = obj.Location;
+        }
+    }
+}

@@ -1,6 +1,20 @@
 var myIndex = 0;
-// /*Slide Show*/
+var ProductName = "Product Name";
+var Quantity = "Quantity";
+var startingBid = "Starting Bid";
+var currentBid = "Current Bid";
+var rating = "Rating";
 
+
+
+
+function getData(){
+    fetch('http://localhost:3000/farmerProduct/item')
+        .then(response => response.json())
+        .then(data => transfer(data))
+}
+
+/*Slide Show*/
 function carousel() {
     var i;
     var x = document.getElementsByClassName("mySlides");
@@ -13,6 +27,12 @@ function carousel() {
     setTimeout(carousel, 2000); // Change image every 2 seconds
 }
 
+function Start(){
+    getData();
+    carousel();
+}
+
+
 /*page redirecting*/
 function redirectLogin() {
   window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/login.html";
@@ -23,21 +43,33 @@ function redirectFarmerProfile(){
 }
 
 
-/**Adding new bids dynamically**/
-function genDivs(v)
-{
+function transfer(val){
     var e = document.getElementById("grid"); // whatever you want to append the rows to:
-    for(var i = 1; i <= v; i++)
-    {
+    for(var i = 0; i < val.length; i++) {
+        var obj = val[i];
         var row = document.createElement("div");
         row.className = "item"+new String(i);
         var cell = document.createElement("a");
         cell.href ="customerproduct.html";
         cell.style.textDecoration = 'none';
-        cell.innerText = String(i)+"\n"+"Product Name"+"\n"+"Quantity"+"\n"+"Starting Bid"+"\n"+"Current Bid"+"\n"+"Rating";
+        cell.innerText = "Product Name: "+obj.ProductName+"\n"+"Quantity: "+obj.Quantity+"\n"+"Starting Bid: "+obj.StartingBid+"\n"+"Location: "+obj.Location+"\n"+"Product ID: "+obj._id;
         row.appendChild(cell);
         e.appendChild(row);
     }
-    console.log(e);
 }
-genDivs(24);
+
+var intendedElement = document.getElementById('grid');
+var text;
+document.addEventListener('click', function(e) {
+
+    if(intendedElement.contains(e.target)){
+        e = e || window.event;
+        target = e.target || e.srcElement,
+        text = target.textContent || target.innerText;
+        text = text.substring(text.length - 24, text.length);
+        // alert(text);
+        localStorage.setItem('data', text);
+    }
+}, false);
+
+
