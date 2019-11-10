@@ -13,11 +13,13 @@ const customerCurrentBidroute = require('./customerCurrentBidroute');
 
 
 var app = express();
+app.use(express.static('./public'));
 
 const port = 3000;
 
 mongoose.connect('mongodb://localhost:27017/FarmerPlot',{
-    useMongoClient: true
+    useNewUrlParser : true,
+    useUnifiedTopology : true
 });
 
 mongoose.connection.on('connected',()=>{

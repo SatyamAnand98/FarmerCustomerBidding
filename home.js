@@ -45,7 +45,7 @@ function transfer(val){
         var cell = document.createElement("a");
         cell.href ="customerproduct.html";
         cell.style.textDecoration = 'none';
-        cell.innerText = "Product Name: "+obj.ProductName+"\n"+"Quantity: "+obj.Quantity+"\n"+"Starting Bid: "+obj.StartingBid+"\n"+"Location: "+obj.Location+"\n"+"Product ID: "+obj._id;
+        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+"Current Bidding: ₹"+obj.HeighestBid+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
         row.appendChild(cell);
         e.appendChild(row);
     }

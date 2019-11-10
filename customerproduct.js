@@ -36,9 +36,9 @@ function transfer(val){
         var obj = val[i];
         if(obj._id === number){
             document.getElementById('Pname').innerText = obj.ProductName;
-            document.getElementById('Quantity').innerText = obj.Quantity;
-            document.getElementById('Sbid').innerText = obj.StartingBid;
-            // document.getElementById('Pname').innerText = obj.ProductName;
+            document.getElementById('Quantity').innerText = obj.Quantity+' '+obj.Unit;
+            document.getElementById('Sbid').innerText = "₹"+obj.StartingBid;
+            document.getElementById('Cbid').innerText = "₹"+obj.HeighestBid;
             document.getElementById('Location').innerText = obj.Location;
         }
     }

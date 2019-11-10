@@ -17,18 +17,24 @@ router.get('/item',(req, res, next)=>{
 
 
 router.post('/itempost',(req, res, next)=>{
+    console.log(req.body);
     let newItem = new Item({
+        Sold:req.body.Sold,
+        Fid:req.body.Fid,
         ProductName: req.body.ProductName,
         StartingBid: req.body.StartingBid,
         Quantity: req.body.Quantity,
         Unit: req.body.Unit,
-        Location: req.body.Location
+        Location: req.body.Location,
+        HeighestBid:req.body.HeighestBid
     });
     newItem.save((err)=>{
         if(err){
+            console.log("err", err);
             res.json(err);
         }
         else{
+            console.log("successfully");
             res.json({msg: 'hurray!! item added successfully'});
         }
     });
@@ -38,11 +44,14 @@ router.post('/itemupdate/:id', (req,res,next)=>{
     Item.findOneAndUpdate(
         {
          $set:{
+            Sold:req.body.Sold,
+            Fid:req.body.Fid,
             ProductName: req.body.ProductName,
             StartingBid: req.body.StartingBid,
             Quantity: req.body.Quantity,
             Unit: req.body.Unit,
-            Location: req.body.Location
+            Location: req.body.Location,
+            HeighestBid:req.body.HeighestBid
         }},
         (err, result)=>{
             if(err){

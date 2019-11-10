@@ -1,20 +1,12 @@
 var mongoose = require('mongoose');
 
 const itemSchema = mongoose.Schema({
-    _id:{
-        type: String,
-        required: true
-    },
     Name:{
         type:String,
         required: true
     },
     Email:{
         type: String,
-        required: true
-    },
-    Location:{
-        type:String,
         required: true
     },
     Phone:{

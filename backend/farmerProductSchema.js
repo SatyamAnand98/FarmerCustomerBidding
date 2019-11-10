@@ -1,6 +1,14 @@
 var mongoose = require('mongoose');
 
 const itemSchema = mongoose.Schema({
+    Sold:{
+        type:Number,
+        required:false
+    },
+    Fid:{
+        type:String,
+        required: false
+    },
     ProductName:{
         type:String,
         required: true
@@ -20,6 +28,10 @@ const itemSchema = mongoose.Schema({
     Location:{
         type: String,
         required: true
+    },
+    HeighestBid:{
+        type:Number,
+        required:false
     }
 });
 

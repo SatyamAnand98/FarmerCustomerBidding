@@ -128,7 +128,9 @@ small.errorOnce {
 }
 .form-item input[type="text"],
 .form-item input[type="number"],
-.form-item input[type="email"] {
+.form-item input[type="email"],
+.form-item input[type="Password"]
+ {
   display: block;
   color: black;
   font-size: 16px;

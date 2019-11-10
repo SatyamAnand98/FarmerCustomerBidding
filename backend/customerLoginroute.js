@@ -18,10 +18,8 @@ router.get('/item',(req, res, next)=>{
 
 router.post('/itempost',(req, res, next)=>{
     let newItem = new Item({
-        _id: req.body._id,
         Name: req.body.Name,
         Email: req.body.Email,
-        Location: req.body.Location,
         Phone: req.body.Phone,
         Password: req.body.Password
     });
@@ -39,10 +37,8 @@ router.post('/itemupdate/:id', (req,res,next)=>{
     Item.findOneAndUpdate(
         {
          $set:{
-            _id: req.body._id,
             Name: req.body.Name,
             Email: req.body.Email,
-            Location: req.body.Location,
             Phone: req.body.Phone,
             Password: req.body.Password
         }},

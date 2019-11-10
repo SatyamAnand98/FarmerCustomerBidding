@@ -6,12 +6,6 @@ var pass;
 const farmerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/farmerproduct.html";
 const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customerProfile.html";
 
-// farmerUser = document.querySelector('#Funame').value;
-// customerUser = document.querySelector('#Cuname').value;
-// customerPwd = document.querySelector('#Cpwd').value;
-// farmerPwd = document.querySelector('#Fpwd').value;
-
-
 function redirectFarmerProduct(form){
     farmerUser = form.funame.value;
     farmerPwd = form.fpsd.value;
@@ -40,14 +34,15 @@ function redirectFarmerProduct(form){
 
 /*page redirecting*/
 function redirectHome(){
-    if( farmerUser === "thesatemail@gmail.com" &&  farmerPwd === "andarjanede") {
-        window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/home.html";
-    }
+    window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/home.html";
 }
 
+function redirectcustomerSignup(){
+    window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/customerSignup.html";
+}
 
-function redirectSignup(){
-    window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/signup.html";
+function redirectfarmerSignup(){
+    window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/farmerSignup.html";
 }
 
 
@@ -75,4 +70,3 @@ function redirectCustomerProfile(form){
     }
     return false;
 }
-
