@@ -78,3 +78,6 @@ router.post('/itemdelete/:id',(req, res, next)=>{
 });
 
 module.exports = router;
+
+
+// mongodb+srv://SatyamAnand:<password>@farmerplot-xylad.mongodb.net/test?retryWrites=true&w=majority

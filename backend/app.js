@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const farmerProductroute = require('./farmerProductroute');
+const customerProductroute = require('./customerProductroute');
 const farmerPreviousBidroute = require('./farmerPreviousBidroute');
 const farmerCurrentBidroute = require('./farmerCurrentBidroute');
 const farmerLoginroute = require('./farmerLoginroute');
@@ -35,6 +36,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/farmerProduct',farmerProductroute);
+app.use('/customerProduct',customerProductroute);
 app.use('/farmerPreviousBid',farmerPreviousBidroute);
 app.use('/farmerCurrentBid',farmerCurrentBidroute);
 app.use('/farmerLogin',farmerLoginroute);
