@@ -9,8 +9,8 @@ var params = {
        StringValue: 'Transactional'
       }
     },
-  Message: 'this is a test message',
-  PhoneNumber: '+919835915117'
+  Message: 'आपका सामान रूपये में खरीदने की अर्ज़ी ने डाली है।',
+  PhoneNumber: '+919513868175'
 };
 
 

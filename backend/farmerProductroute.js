@@ -19,7 +19,7 @@ router.get('/item',(req, res, next)=>{
 router.post('/itempost',(req, res, next)=>{
     console.log(req.body);
     let newItem = new Item({
-        Sold:req.body.Sold,
+        Sold:0,
         Fid:req.body.Fid,
         ProductName: req.body.ProductName,
         StartingBid: req.body.StartingBid,

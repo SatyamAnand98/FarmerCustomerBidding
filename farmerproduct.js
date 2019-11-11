@@ -3,7 +3,10 @@ function redirectFarmerProfile(){
     window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/farmerProfile.html"
 }
 
+
 function dataRetreival(){
+    var FID=localStorage.getItem('FarmerID');
+    alert(FID);
 
     /*reading entered data*/
     var e = document.getElementById("unit");
@@ -24,6 +27,7 @@ function dataRetreival(){
             'Content-Type': 'application/json'
         },
          body: JSON.stringify({
+            Fid:FID,
             ProductName : test.productName,
             StartingBid : test.startingBid,
             Quantity : test.quantity,

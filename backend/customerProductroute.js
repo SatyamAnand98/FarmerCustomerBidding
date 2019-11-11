@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const Item = require('./customerProductSchema');
 
+
 router.get('/item',(req, res, next)=>{
     Item.find((err,items)=>{
         if(err){
@@ -24,8 +25,9 @@ router.post('/itempost',(req, res, next)=>{
         Name: req.body.Name,
         Email: req.body.Email,
         Phone: req.body.Phone,
-        Bidplace: req.body.Bidplace,
-        BidObtained:0
+        BidPlaced: req.body.BidPlaced,
+        BidObtained:0,
+        Fphn:req.body.Fphn
     });
     newItem.save((err)=>{
         if(err){
@@ -33,8 +35,8 @@ router.post('/itempost',(req, res, next)=>{
             res.json(err);
         }
         else{
-            Msg(newItem.Name, newItem.Phone);
-            console.log("successfully");
+            console.log("successfully yay!!");
+            msg(newItem.Phone, newItem.BidPlaced, newItem.Fphn, newItem.Name, newItem.ProductName);
             res.json({msg: 'hurray!! item added successfully'});
         }
     });
@@ -49,7 +51,7 @@ router.post('/itemupdate/:id', (req,res,next)=>{
             Name: req.body.Name,
             Email: req.body.Email,
             Phone: req.body.Phone,
-            Bidplace: req.body.Bidplace,
+            BidPlaced: req.body.BidPlaced,
             BidObtained:req.body.BidObtained
         }},
         (err, result)=>{
@@ -78,25 +80,23 @@ router.post('/itemdelete/:id',(req, res, next)=>{
 
 module.exports = router;
 
-function Msg(nm, ph){
-AWS.config.region = 'us-east-1';
-var sns = new AWS.SNS();
-var AWS = require('aws-sdk');
+function msg(ph, bd, ph2, nm, pnm){
+    var AWS = require('aws-sdk');
+    AWS.config.region = 'us-east-1';
+    var sns = new AWS.SNS();
 
-var params = {
-    MessageAttributes: {
+    var params = {
+        MessageAttributes: {
         'AWS.SNS.SMS.SMSType': {
-            DataType: 'String',
-            StringValue: 'Transactional'
-        }
-    },
-        Message: ('this is a test message from '+nm+' and phone number is '+ph),
-        PhoneNumber: '+919606260923'
+           DataType: 'String',
+           StringValue: 'Transactional'
+          }
+        },
+      Message: (nm+' ने '+pnm+' खरीदना '+bd+' रूपये में तय किया है।उनसे जुड़ने के लिए '+ph+' पर संपर्क करें ।'),
+      PhoneNumber: '+91'+ph2
     };
-
-
     sns.publish(params, function(err, data) {
-        if (err) console.log(err, err.stack);
-        else     console.log(data);
+      if (err) console.log(err, err.stack);
+      else console.log(data);
     });
 }

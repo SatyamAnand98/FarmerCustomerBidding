@@ -21,8 +21,9 @@ function closeForm() {
 /*Changing Inner Text*/
 
 
-var number=localStorage.getItem('data');
-var pName;
+var PID=localStorage.getItem('Pid');
+var FID;
+var FPHN;
 
 function getData(){
     fetch('http://localhost:3000/farmerProduct/item')
@@ -33,7 +34,7 @@ function getData(){
 function transfer(val){
     for(var i = 0; i < val.length; i++) {
         var obj = val[i];
-        if(obj._id === number){
+        if(obj._id === PID){
             document.getElementById('Pname').innerText = obj.ProductName;
             pName = obj.ProductName;
             document.getElementById('Quantity').innerText = obj.Quantity+' '+obj.Unit;
@@ -44,9 +45,41 @@ function transfer(val){
     }
 }
 
+PidExtraction();
+// alert(FID)
+
+function PidExtraction(){
+  fetch('http://localhost:3000/farmerProduct/item')
+        .then(response => response.json())
+        .then(data => fetchFID(data))
+  fetch('http://localhost:3000/farmerLogin/item')
+        .then(response => response.json())
+        .then(data => fetchFphn(data))
+}
+
+function fetchFID(pval){
+    for(var i = 0; i < pval.length; i++) {
+        var obj1 = pval[i];
+        if(obj1._id === PID){
+            FID = obj1.Fid;
+            // alert(FID);
+            break;
+        }
+    }
+}
+
+function fetchFphn(fval){
+    for(var i = 0; i < fval.length; i++) {
+        var obj2 = fval[i];
+        if(obj2._id === FID){
+            FPHN = obj2.Phone;
+            // alert(FPHN)
+            break;
+        }
+    }
+}
 
 function dataRetreival(){
-
     /*reading entered data*/
     var test={
         name : document.getElementById("nm").value,
@@ -55,7 +88,6 @@ function dataRetreival(){
         Bid :  document.getElementById("bid").value,
         // Message :  document.getElementById("ms").value,
     };
-
     fetch('http://localhost:3000/customerProduct/itempost', {
         method: 'post',
         headers: {
@@ -63,18 +95,16 @@ function dataRetreival(){
             'Content-Type': 'application/json'
         },
          body: JSON.stringify({
-            Pid:number,
+            Pid:PID,
             ProductName: pName,
             Name : test.name,
             Email : test.email,
             Phone : test.ph,
-            BidPlaced : test.Bid
+            BidPlaced : test.Bid,
+            Fphn:FPHN
             })
     })
     .then((res)=>{
     console.log(res);
     });
 }
-
-var PID = number;
-

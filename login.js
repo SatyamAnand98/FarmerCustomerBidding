@@ -2,35 +2,45 @@ var farmerUser = "";
 var farmerPwd = "";
 var customerUser = "";
 var customerPwd = "";
-var pass;
 const farmerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/farmerproduct.html";
 const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customerProfile.html";
 
-function redirectFarmerProduct(form){
-    farmerUser = form.funame.value;
-    farmerPwd = form.fpsd.value;
-    if(farmerUser === "thesatemail@gmail.com") {
-        pass = true;
-    }
-    else{
-        pass = false
-    }
-    if(farmerPwd === "asd"){
-        pass = true;
-    }
-    else{
-        pass = false;
-    }
+function redirectFarmerProduct(){
+    farmerUser = document.getElementById("Funame").value;
+    farmerPwd = document.getElementById("Fpwd").value;
+    var FarmerId='';
+    var Fpwd='';
+    var pass=false;
+    fetch('http://localhost:3000/farmerLogin/item')
+        .then(response => response.json())
+        .then(data => transferfarmer(data))
 
-    if(pass){
-        window.location.href = farmerproduct;
+    function transferfarmer(val){
+        for(var i = 0; i < val.length; i++) {
+            var obj = val[i];
+            if(obj.Email === farmerUser){
+                Fpwd = obj.Password;
+                FarmerId = obj._id;
+                alert(FarmerId);
+                localStorage.setItem('FarmerID', FarmerId);
+                if(String(farmerPwd) === String(Fpwd)) {
+                    pass = true;
+                }
+                else{
+                    pass = false
+                }
+
+                if(pass){
+                    window.location.href = farmerproduct;
+                }
+                else{
+                    alert("Email or Password is wrong");
+                }
+                return false;
+            }
+        }
     }
-    else{
-        alert("Email or Password is wrong");
-    }
-    return false;
 }
-
 
 /*page redirecting*/
 function redirectHome(){
@@ -49,24 +59,35 @@ function redirectfarmerSignup(){
 function redirectCustomerProfile(form){
     customerUser = form.cuname.value;
     customerPwd = form.cpsd.value;
-    if(customerUser === "thesatemail@gmail.com") {
-        pass = true;
-    }
-    else{
-        pass = false
-    }
-    if(customerPwd === "asd"){
-        pass = true;
-    }
-    else{
-        pass = false;
-    }
+    var CustomerId='';
+    var Cpwd='';
+    fetch('http://localhost:3000/customerLogin/item')
+        .then(response => response.json())
+        .then(data => transferfarmer(data))
 
-    if(pass){
-        window.location.href = customerproduct;
+    function transferfarmer(val){
+        for(var i = 0; i < val.length; i++) {
+            var obj = val[i];
+            if(obj.Email === customerUser){
+                Cpwd = obj.Password;
+                CustomerId = obj._id;
+                if(String(customerPwd) === String(Cpwd)) {
+                    pass = true;
+                }
+                else{
+                    pass = false
+                }
+
+                if(pass){
+                    window.location.href = customerproduct;
+                }
+                else{
+                    alert("Email or Password is wrong");
+                }
+                return false;
+            }
+        }
+        localStorage.setItem('CustomerID', CustomerId);
     }
-    else{
-        alert("Email or Password is wrong");
-    }
-    return false;
 }
+

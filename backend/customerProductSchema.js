@@ -23,11 +23,15 @@ const itemSchema = mongoose.Schema({
     },
     BidPlaced:{
         type:Number,
-        required:false
+        required:true
     },
     BidObtained:{
         type:Number,
         required:true
+    },
+    Fphn:{
+        type:Number,
+        required:false
     }
 });
 
