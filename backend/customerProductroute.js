@@ -81,6 +81,7 @@ router.post('/itemdelete/:id',(req, res, next)=>{
 module.exports = router;
 
 function msg(ph, bd, ph2, nm, pnm){
+    console.log('sending message')
     var AWS = require('aws-sdk');
     AWS.config.region = 'us-east-1';
     var sns = new AWS.SNS();

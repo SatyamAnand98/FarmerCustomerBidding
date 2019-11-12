@@ -81,7 +81,7 @@ img {vertical-align: middle;}
 
 .awesome {
   font-family: 'Allan';font-size: 42px;
-  margin-left: 190px;
+  margin-left: 50px;
   -webkit-animation:colorchange 10s infinite alternate;
     display: inline-block;
 }

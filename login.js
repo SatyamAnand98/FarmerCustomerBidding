@@ -24,13 +24,6 @@ function redirectFarmerProduct(){
                 alert(FarmerId);
                 localStorage.setItem('FarmerID', FarmerId);
                 if(String(farmerPwd) === String(Fpwd)) {
-                    pass = true;
-                }
-                else{
-                    pass = false
-                }
-
-                if(pass){
                     window.location.href = farmerproduct;
                 }
                 else{
@@ -71,6 +64,7 @@ function redirectCustomerProfile(form){
             if(obj.Email === customerUser){
                 Cpwd = obj.Password;
                 CustomerId = obj._id;
+                localStorage.setItem('CustomerID', CustomerId);
                 if(String(customerPwd) === String(Cpwd)) {
                     pass = true;
                 }
@@ -87,7 +81,6 @@ function redirectCustomerProfile(form){
                 return false;
             }
         }
-        localStorage.setItem('CustomerID', CustomerId);
     }
 }
 
