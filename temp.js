@@ -6,22 +6,36 @@ const farmerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/farmerprod
 const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customerProfile.html";
 
 
+
 function redirectFarmerProduct(){
     farmerUser = document.getElementById("Funame").value;
     farmerPwd = document.getElementById("Fpwd").value;
     var FarmerId='';
     var Fpwd='';
-    var data2;
 
-    fetch('http://localhost:3000/farmerLogin/item')
-        .then(response => response.json())
-        .then(data => data2 = data)
-        .then(setTimeout(3000))
-        .then(() => transferfarmer(data2))
+    start();
 
-    function transferfarmer(val){
+    async function start(){
+        await callingFetch();
+        // await transferfarmer();
+    }
+
+    async function callingFetch(){
+        const response = await fetch('http://localhost:3000/farmerLogin/item')
+        const json = await response.json();
+        await transferfarmer(json);
+    }
+
+// fetch('http://localhost:3000/farmerLogin/item')
+//         .then(response => response.json())
+//         .then(data => transferfarmer(data))
+
+
+    async function transferfarmer(val){
         for(var i = 0; i < val.length; i++) {
             var obj = val[i];
+            // alert('inside')
+            setTimeout(5000);
             if(obj.Email === farmerUser){
                 Fpwd = obj.Password;
                 FarmerId = obj._id;
@@ -35,6 +49,7 @@ function redirectFarmerProduct(){
                 return false;
             }
         }
+        return 0;
     }
 }
 

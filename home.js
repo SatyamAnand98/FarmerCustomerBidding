@@ -60,7 +60,7 @@ document.addEventListener('click', function(e) {
         target = e.target || e.srcElement,
         text = target.textContent || target.innerText;
         text = text.substring(text.length - 24, text.length);
-        // alert(text);
+        alert(text);
         localStorage.setItem('Pid', text);
     }
 }, false);
