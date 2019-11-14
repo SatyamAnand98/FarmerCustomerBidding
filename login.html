@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="login.css">
     <link rel="icon" href="farm.jpg" type="image/gif" >
     <title>Log in to Farmer's Plot</title>
+    <script src="login.js"></script>
 </head>
 <body>
     <button class="buttonHome buttonHome1" onclick="redirectHome()">Home</button>
@@ -28,7 +29,7 @@
                         <label for="psw"><b>Password</b></label>
                         <input type="password" id="Fpwd" placeholder="Enter Password" name="fpsd" required>
 
-                        <button type="submit" onclick="redirectFarmerProduct()">Login</button>
+                        <button onclick="redirectFarmerProduct()">Login</button>
                         <label>
                             <input type="checkbox" checked="checked" name="remember"> Remember me
                         </label>
@@ -62,6 +63,6 @@
             </form>
         </div>
     </div>
-    <script src="login.js"></script>
+
 </body>
 </html>

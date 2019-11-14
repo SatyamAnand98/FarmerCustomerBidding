@@ -36,6 +36,7 @@ function redirectFarmerProduct(){
             }
         }
     }
+    // location.reload()
 }
 
 /*page redirecting*/
@@ -85,5 +86,5 @@ function redirectCustomerProfile(form){
             }
         }
     }
+    // location.reload()
 }
-
