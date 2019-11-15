@@ -1,11 +1,12 @@
 var myIndex = 0;
+var list = []
+var temp;
 
-
-function getData(){
-    fetch('http://localhost:3000/farmerProduct/item')
-        .then(response => response.json())
-        .then(data => transfer(data))
+function Start(){
+    getData();
+    carousel();
 }
+
 
 /*Slide Show*/
 function carousel() {
@@ -20,12 +21,6 @@ function carousel() {
     setTimeout(carousel, 2000); // Change image every 2 seconds
 }
 
-function Start(){
-    getData();
-    carousel();
-}
-
-
 /*page redirecting*/
 function redirectLogin() {
   window.location = "file:///home/stoneduser/Desktop/FarmerCustomerBidding/login.html";
@@ -36,7 +31,43 @@ function redirectFarmerProfile(){
 }
 
 
+//Calculate Heighest Bid
+function calc(productid){
+    const maxima = fetch('http://localhost:3000/customerProduct/item')
+        .then(res => res.json())
+        .then(data => {
+            var max = 0;
+            for(var i=0 ; i<data.length ; i++){
+                var obj = data[i];
+                if(productid === obj.Pid){
+                    if(obj.BidPlaced >= max){
+                        max = obj.BidPlaced;
+                    }
+                }
+            }
+            // return max
+        })
+        var val;
+        val = maxima.then(function(res){
+            return res.text();
+        })
+        console.log(val)
+    // let response = fetch(maxima);
+
+    // let commits = maxima.then(response => response.json()); // read response body and parse as JSON
+
+    // alert(commits[0]);
+}
+
+//get data from farmerProduct.
+function getData(){
+    fetch('http://localhost:3000/farmerProduct/item')
+        .then(res => res.json())
+        .then(data => transfer(data))
+}
+
 function transfer(val){
+    var max = 0;
     var e = document.getElementById("grid"); // whatever you want to append the rows to:
     for(var i = 0; i < val.length; i++) {
         var obj = val[i];
@@ -45,11 +76,14 @@ function transfer(val){
         var cell = document.createElement("a");
         cell.href ="customerproduct.html";
         cell.style.textDecoration = 'none';
-        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+"Current Bidding: ₹"+obj.HeighestBid+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
+        calc(obj._id)
+        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+"Current Bidding: ₹"+max+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
         row.appendChild(cell);
         e.appendChild(row);
     }
+    // console.log(list+' called from iniside')
 }
+
 
 var intendedElement = document.getElementById('grid');
 var text;
@@ -64,5 +98,3 @@ document.addEventListener('click', function(e) {
         localStorage.setItem('Pid', text);
     }
 }, false);
-
-

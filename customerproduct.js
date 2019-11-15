@@ -93,30 +93,23 @@ async function dataRetreival(){
     };
 
     // alert('before');
-    function repeat(){
-      fetch('http://localhost:3000/customerProduct/itempost', {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-          },
-           body: JSON.stringify({
-              Pid:PID,
-              ProductName: pName,
-              Name : test.name,
-              Email : test.email,
-              Phone : test.ph,
-              BidPlaced : test.Bid,
-              Fphn:FPHN
-              })
-      })
-        .then((res)=>{
-        console.log(res);
-        if(String(res) === ''){
-          repeat();
-        }
-      });
-    }
-    repeat();
-
+    fetch('http://localhost:3000/customerProduct/itempost', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+         body: JSON.stringify({
+            Pid:PID,
+            ProductName: pName,
+            Name : test.name,
+            Email : test.email,
+            Phone : test.ph,
+            BidPlaced : test.Bid,
+            Fphn:FPHN
+            })
+    })
+      .then((res)=>{
+      console.log(res);
+    });
 }
