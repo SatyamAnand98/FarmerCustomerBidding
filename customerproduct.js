@@ -77,6 +77,7 @@ async function fetchFphn(fval){
         var obj2 = fval[i];
         if(obj2._id === FID){
             FPHN = obj2.Phone;
+            alert(FPHN)
             break;
         }
     }
