@@ -16,7 +16,6 @@ function redirectFarmerProduct(){
     fetch('http://localhost:3000/farmerLogin/item')
         .then(response => response.json())
         .then(data => data2 = data)
-        .then(setTimeout(3000))
         .then(() => transferfarmer(data2))
 
     function transferfarmer(val){

@@ -37,7 +37,6 @@ async function calc(productid,  response){
     if(response.ok){
         let da = await response.json();
         let max = 0;
-        console.log(da.length)
         for(let i=0 ; i<da.length ; i++){
             let obj = da[i];
             if(productid === obj.Pid){
@@ -63,15 +62,16 @@ function transfer(val){
     let e = document.getElementById("grid");
     for(let i = 0; i < val.length; i++) {
         let obj = val[i];
-        let row = document.createElement("div");
-        row.className = "item"+new String(i);
-        let cell = document.createElement("a");
-        cell.href ="customerproduct.html";
-        cell.style.textDecoration = 'none';
-        console.log(list)
-        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+'Current Bid: ₹'+list[i]+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
-        row.appendChild(cell);
-        e.appendChild(row);
+        if(obj.Sold != 1){
+            let row = document.createElement("div");
+            row.className = "item"+new String(i);
+            let cell = document.createElement("a");
+            cell.href ="customerproduct.html";
+            cell.style.textDecoration = 'none';
+            cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+'Current Bid: ₹'+list[i]+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
+            row.appendChild(cell);
+            e.appendChild(row);
+        }
     }
 }
 

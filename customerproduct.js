@@ -85,13 +85,13 @@ async function fetchFphn(fval){
         let obj2 = fval[i];
         if(obj2._id === FID){
             FPHN = obj2.Phone;
-            // alert(FPHN)
+            alert(FPHN)
             break;
         }
     }
 }
 
-async function dataRetreival(){
+function dataRetreival(){
     /*reading entered data*/
     let test={
         name : document.getElementById("nm").value,
@@ -107,7 +107,7 @@ async function dataRetreival(){
     }
 
     // alert('before');
-    await fetch('http://localhost:3000/customerProduct/itempost', {
+    fetch('http://localhost:3000/customerProduct/itempost', {
         method: 'post',
         headers: {
             'Accept': 'application/json, text/plain, */*',

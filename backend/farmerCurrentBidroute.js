@@ -20,6 +20,7 @@ router.post('/itempost',(req, res, next)=>{
     let newItem = new Item({
         ProductName: req.body.ProductName,
         _id: req.body._id,
+        fid: req.body.fid,
         Price: req.body.Price
     });
     newItem.save((err)=>{
@@ -38,6 +39,7 @@ router.post('/itemupdate/:id', (req,res,next)=>{
          $set:{
             ProductName: req.body.ProductName,
             _id: req.body._id,
+            fid :req.body.fid,
             Price: req.body.Price
         }},
         (err, result)=>{
