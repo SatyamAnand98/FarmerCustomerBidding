@@ -172,6 +172,9 @@ td {
 
 .det{
   margin-left:40%;
+  margin-right:30%;
+  color: black;
+  font-weight: bold;
 }
 
 tr:nth-child(even) {

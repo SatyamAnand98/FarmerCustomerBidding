@@ -12,6 +12,10 @@ router.get('/item',(req, res, next)=>{
         }
         else{
             res.json(items)
+            // for(var i=0 ; i<items.length ; i++){
+            //     var ob = items[i];
+            //     console.log(ob.Pid)
+            // }
         }
     });
 });
@@ -44,6 +48,7 @@ router.post('/itempost',(req, res, next)=>{
 
 router.post('/itemupdate/:id', (req,res,next)=>{
     Item.findOneAndUpdate(
+        {_id: req.params.id},
         {
          $set:{
             Pid:req.body.Pid,

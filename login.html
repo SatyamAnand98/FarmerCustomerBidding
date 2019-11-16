@@ -43,7 +43,7 @@
 
         <div class="column">
             <h2>Login For Customer</h2>
-            <form method="post" onSubmit="return redirectCustomerProfile(this)">
+            <form>
                 <div class="bordered2">
                     <div class="container2">
                         <label for="uname"><b>Username</b></label>
@@ -52,7 +52,7 @@
                         <label for="psw"><b>Password</b></label>
                         <input type="password" id="Cpwd" placeholder="Enter Password" name="cpsd" required>
 
-                        <button class="button" type="submit">Login</button>
+                        <button class="button" onclick="redirectCustomerProfile()">Login</button>
                         <label>
                             <input type="checkbox" checked="checked" name="remember"> Remember me
                         </label>

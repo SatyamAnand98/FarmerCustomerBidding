@@ -1,6 +1,6 @@
-var list = [];
+let list = [];
 
-var myIndex = 0;
+let myIndex = 0;
 
 function Start(){
     getData();
@@ -10,8 +10,8 @@ function Start(){
 
 /*Slide Show*/
 function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
+    let i;
+    let x = document.getElementsByClassName("mySlides");
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
@@ -32,43 +32,54 @@ function redirectFarmerProfile(){
 
 
 //Calculate Heighest Bid
-function calc(productid){
-    fetch('http://localhost:3000/customerProduct/item')
-        .then(res => res.json())
-        .then(data => {
-            var max = 0;
-            for(var i=0 ; i<data.length ; i++){
-                var obj = data[i];
-                if(productid === obj.Pid){
-                    if(obj.BidPlaced >= max){
-                        max = obj.BidPlaced;
-                    }
+async function calc(productid,  response){
+    // alert('4');
+    let da;
+    if(response.ok){
+        let da = await response.json();
+        // console.log(da);
+        // alert('5')
+        let max = 0;
+        for(let i=0 ; i<da.length ; i++){
+            let obj = da[i];
+            if(productid === obj.Pid){
+                if(obj.BidPlaced >= max){
+                    max = obj.BidPlaced;
                 }
             }
-            window.list.push(max)
-        });
+        }
+        // alert('6')
+        // console.log('max = ',max)
+        list.push(max)
+        // alert('7')
+    }
 }
 
 
-function transfer1(val){
-    for(var i = 0; i < val.length; i++) {
-        var obj = val[i];
-        calc(obj._id)
+async function transfer1(val){
+    // alert('2')
+    for(let i = 0; i < val.length; i++) {
+        // alert('3')
+        let obj = val[i];
+        let response = await fetch('http://localhost:3000/customerProduct/item');
+        calc(obj._id, response)
         // alert(window.list)
     }
 }
 
 function transfer(val){
-    console.log(window.list)
-    var e = document.getElementById("grid"); // whatever you want to append the rows to:
-    for(var i = 0; i < val.length; i++) {
-        var obj = val[i];
-        var row = document.createElement("div");
+    // alert('8')
+    // console.log(list)
+    let e = document.getElementById("grid"); // whatever you want to append the rows to:
+    for(let i = 0; i < val.length; i++) {
+        let obj = val[i];
+        let row = document.createElement("div");
         row.className = "item"+new String(i);
-        var cell = document.createElement("a");
+        let cell = document.createElement("a");
         cell.href ="customerproduct.html";
         cell.style.textDecoration = 'none';
-        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+"Current Bidding: ₹"+window.list[i]+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
+        // alert('9')
+        cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+'Current Bid: ₹'+list[i]+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
         row.appendChild(cell);
         e.appendChild(row);
     }
@@ -76,11 +87,11 @@ function transfer(val){
 
 //get data from farmerProduct.
 function getData(){
-    fetch('http://localhost:3000/farmerProduct/item')
+    let dat;
+    // alert('1')
+    fetch(`http://localhost:3000/farmerProduct/item`)
         .then(res => res.json())
-        .then(data => {
-            transfer1(data);
-            setTimeout(6000000)
-            transfer(data);
-        });
+        .then(data => dat =data)
+        .then(() => transfer1(dat))
+        .then(() => transfer(dat))
 }

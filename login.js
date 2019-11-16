@@ -1,7 +1,7 @@
-var farmerUser = "";
-var farmerPwd = "";
-var customerUser = "";
-var customerPwd = "";
+let farmerUser = "";
+let farmerPwd = "";
+let customerUser = "";
+let customerPwd = "";
 const farmerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/farmerproduct.html";
 const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customerProfile.html";
 
@@ -9,9 +9,9 @@ const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customer
 function redirectFarmerProduct(){
     farmerUser = document.getElementById("Funame").value;
     farmerPwd = document.getElementById("Fpwd").value;
-    var FarmerId='';
-    var Fpwd='';
-    var data2;
+    let FarmerId='';
+    let Fpwd='';
+    let data2;
 
     fetch('http://localhost:3000/farmerLogin/item')
         .then(response => response.json())
@@ -20,8 +20,8 @@ function redirectFarmerProduct(){
         .then(() => transferfarmer(data2))
 
     function transferfarmer(val){
-        for(var i = 0; i < val.length; i++) {
-            var obj = val[i];
+        for(let i = 0; i < val.length; i++) {
+            let obj = val[i];
             if(obj.Email === farmerUser){
                 Fpwd = obj.Password;
                 FarmerId = obj._id;
@@ -36,7 +36,6 @@ function redirectFarmerProduct(){
             }
         }
     }
-    // location.reload()
 }
 
 /*page redirecting*/
@@ -53,30 +52,26 @@ function redirectfarmerSignup(){
 }
 
 
-function redirectCustomerProfile(form){
-    customerUser = form.cuname.value;
-    customerPwd = form.cpsd.value;
-    var CustomerId='';
-    var Cpwd='';
+function redirectCustomerProfile(){
+    customerUser = document.getElementById("Cuname").value;
+    customerPwd = document.getElementById("Cpwd").value;
+    let CustomerId='';
+    let Cpwd='';
+    let data2;
     fetch('http://localhost:3000/customerLogin/item')
         .then(response => response.json())
-        .then(data => transferfarmer(data))
+        .then(data => data2 = data)
+        .then(setTimeout(3000))
+        .then(() => transfercustomer(data2))
 
-    function transferfarmer(val){
-        for(var i = 0; i < val.length; i++) {
-            var obj = val[i];
+    function transfercustomer(val){
+        for(let i = 0; i < val.length; i++) {
+            let obj = val[i];
             if(obj.Email === customerUser){
                 Cpwd = obj.Password;
                 CustomerId = obj._id;
                 localStorage.setItem('CustomerID', CustomerId);
                 if(String(customerPwd) === String(Cpwd)) {
-                    pass = true;
-                }
-                else{
-                    pass = false
-                }
-
-                if(pass){
                     window.location.href = customerproduct;
                 }
                 else{
@@ -86,5 +81,4 @@ function redirectCustomerProfile(form){
             }
         }
     }
-    // location.reload()
 }
