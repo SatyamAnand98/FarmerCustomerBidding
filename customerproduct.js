@@ -1,6 +1,8 @@
+let initial = 0;
+
 /*pop up window*/
 function openTab(tabName) {
-  var i, x;
+  let i, x;
   x = document.getElementsByClassName("containerTab");
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
@@ -21,11 +23,16 @@ function closeForm() {
 /*Changing Inner Text*/
 
 
-var PID=localStorage.getItem('Pid');
-var FID;
-var FPHN;
+let PID=localStorage.getItem('Pid');
+let FID;
+let FPHN;
 
 function getData(){
+    let count = 0;
+    if(count == 0){
+        onload="getData()";
+        count = 1;
+    }
     fetch('http://localhost:3000/farmerProduct/item')
         .then(response => response.json())
         .then(data => transferdata = data)
@@ -33,14 +40,15 @@ function getData(){
 }
 
 function transfer(val){
-    for(var i = 0; i < val.length; i++) {
-        var obj = val[i];
+    for(let i = 0; i < val.length; i++) {
+        let obj = val[i];
         if(obj._id === PID){
             document.getElementById('Pname').innerText = obj.ProductName;
             pName = obj.ProductName;
             document.getElementById('Quantity').innerText = obj.Quantity+' '+obj.Unit;
             document.getElementById('Sbid').innerText = "₹"+obj.StartingBid;
-            document.getElementById('Cbid').innerText = "₹"+obj.HeighestBid;
+            initial = obj.StartingBid;
+            // document.getElementById('Cbid').innerText = "₹"+obj.HeighestBid;
             document.getElementById('Location').innerText = obj.Location;
         }
     }
@@ -63,8 +71,8 @@ function PidExtraction(){
 }
 
 async function fetchFID(pval){
-    for(var i = 0; i < pval.length; i++) {
-        var obj1 = pval[i];
+    for(let i = 0; i < pval.length; i++) {
+        let obj1 = pval[i];
         if(obj1._id === PID){
             FID = obj1.Fid;
             break;
@@ -73,8 +81,8 @@ async function fetchFID(pval){
 }
 
 async function fetchFphn(fval){
-    for(var i = 0; i < fval.length; i++) {
-        var obj2 = fval[i];
+    for(let i = 0; i < fval.length; i++) {
+        let obj2 = fval[i];
         if(obj2._id === FID){
             FPHN = obj2.Phone;
             // alert(FPHN)
@@ -85,7 +93,7 @@ async function fetchFphn(fval){
 
 async function dataRetreival(){
     /*reading entered data*/
-    var test={
+    let test={
         name : document.getElementById("nm").value,
         email : document.getElementById("em").value,
         ph :  document.getElementById("ph").value,
@@ -93,8 +101,13 @@ async function dataRetreival(){
         // Message :  document.getElementById("ms").value,
     };
 
+    if(initial > test.Bid){
+        alert('Bidding Amount can not be less than Starting Bid');
+        getData();
+    }
+
     // alert('before');
-    fetch('http://localhost:3000/customerProduct/itempost', {
+    await fetch('http://localhost:3000/customerProduct/itempost', {
         method: 'post',
         headers: {
             'Accept': 'application/json, text/plain, */*',

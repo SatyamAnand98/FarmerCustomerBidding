@@ -12,17 +12,12 @@ router.get('/item',(req, res, next)=>{
         }
         else{
             res.json(items)
-            // for(var i=0 ; i<items.length ; i++){
-            //     var ob = items[i];
-            //     console.log(ob.Pid)
-            // }
         }
     });
 });
 
 
 router.post('/itempost',(req, res, next)=>{
-    console.log(req.body);
     let newItem = new Item({
         Pid:req.body.Pid,
         ProductName: req.body.ProductName,
@@ -40,7 +35,7 @@ router.post('/itempost',(req, res, next)=>{
         }
         else{
             console.log("successfully yay!!");
-            msg(newItem.Phone, newItem.BidPlaced, newItem.Fphn, newItem.Name, newItem.ProductName);
+            // msg(newItem.Phone, newItem.BidPlaced, newItem.Fphn, newItem.Name, newItem.ProductName);
             res.json({msg: 'hurray!! item added successfully'});
         }
     });

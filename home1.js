@@ -1,5 +1,6 @@
-var intendedElement = document.getElementById('grid');
-var text;
+let intendedElement = document.getElementById('grid');
+let text;
+let cost;
 document.addEventListener('click', function(e) {
 
     if(intendedElement.contains(e.target)){
@@ -10,5 +11,6 @@ document.addEventListener('click', function(e) {
         // alert(text);
         localStorage.setItem('Pid', text);
     }
+    // console.log(list)
     // alert(list)
 }, false);

@@ -33,13 +33,11 @@ function redirectFarmerProfile(){
 
 //Calculate Heighest Bid
 async function calc(productid,  response){
-    // alert('4');
     let da;
     if(response.ok){
         let da = await response.json();
-        // console.log(da);
-        // alert('5')
         let max = 0;
+        console.log(da.length)
         for(let i=0 ; i<da.length ; i++){
             let obj = da[i];
             if(productid === obj.Pid){
@@ -48,29 +46,21 @@ async function calc(productid,  response){
                 }
             }
         }
-        // alert('6')
-        // console.log('max = ',max)
         list.push(max)
-        // alert('7')
     }
 }
 
 
 async function transfer1(val){
-    // alert('2')
     for(let i = 0; i < val.length; i++) {
-        // alert('3')
         let obj = val[i];
         let response = await fetch('http://localhost:3000/customerProduct/item');
-        calc(obj._id, response)
-        // alert(window.list)
+        await calc(obj._id, response)
     }
 }
 
 function transfer(val){
-    // alert('8')
-    // console.log(list)
-    let e = document.getElementById("grid"); // whatever you want to append the rows to:
+    let e = document.getElementById("grid");
     for(let i = 0; i < val.length; i++) {
         let obj = val[i];
         let row = document.createElement("div");
@@ -78,7 +68,7 @@ function transfer(val){
         let cell = document.createElement("a");
         cell.href ="customerproduct.html";
         cell.style.textDecoration = 'none';
-        // alert('9')
+        console.log(list)
         cell.innerText = obj.ProductName+"\n"+obj.Quantity+' '+obj.Unit+"\n"+"Starting Bid: ₹"+obj.StartingBid+'\n'+'Current Bid: ₹'+list[i]+"\n"+obj.Location+"\n"+"Product ID: "+obj._id;
         row.appendChild(cell);
         e.appendChild(row);
@@ -88,10 +78,10 @@ function transfer(val){
 //get data from farmerProduct.
 function getData(){
     let dat;
-    // alert('1')
     fetch(`http://localhost:3000/farmerProduct/item`)
         .then(res => res.json())
         .then(data => dat =data)
         .then(() => transfer1(dat))
         .then(() => transfer(dat))
 }
+

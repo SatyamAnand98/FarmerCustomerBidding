@@ -17,7 +17,7 @@ router.get('/item',(req, res, next)=>{
 
 
 router.post('/itempost',(req, res, next)=>{
-    console.log(req.body);
+    // console.log(req.body);
     let newItem = new Item({
         Sold:0,
         Fid:req.body.Fid,
