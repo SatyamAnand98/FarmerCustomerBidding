@@ -78,12 +78,17 @@ function setDataCurrent(){
         prtd.innerText = 'Price';
 
         var ctd = document.createElement('th');
-        ctd.innerText = 'Cancel Bid'
+        ctd.innerText = 'Close Bid';
+        // ctd.className = 'tx3';
+
+        var cnclbidtd = document.createElement('th');
+        cnclbidtd.innerText = 'Cancel Bid';
 
         tr.appendChild(ptd);
         tr.appendChild(ntd);
         tr.appendChild(prtd);
         tr.appendChild(ctd);
+        tr.appendChild(cnclbidtd);
         e.appendChild(tr);
 
         var c = 0;
@@ -100,7 +105,8 @@ function setDataCurrent(){
                 pIDtd.id ='pid'+String(c);
                 c = c+1;
                 let pricetd = document.createElement('td');
-                let canceltd = document.createElement('td')
+                let canceltd = document.createElement('td');
+                let cancelbidtd = document.createElement('td');
 
                 let pNamep = document.createElement('p');
                 pNamep.className = "tx2";
@@ -122,7 +128,10 @@ function setDataCurrent(){
                 // cancelp.id = "cncl";
 
                 var cancelp = document.createElement('span');
-                cancelp.innerHTML = '<button id="cncl" onclick="getId(this)"><i class="fa fa-close"/>';
+                cancelp.innerHTML = '<button id="cncl" class="tx2" onclick="getId(this)"><i class="fa fa-ban"/>';
+
+                var cancelbidp = document.createElement('span');
+                cancelbidp.innerHTML = '<button id="cncl" class="tx2" onclick="deleteId(this)"><i class="fa fa-close"/>';
 
                 // let canceli = document.createElement('i');
                 // canceli.className = "fa fa-close";
@@ -136,11 +145,13 @@ function setDataCurrent(){
                 pricetd.appendChild(pricep);
                 // cancelp.appendChild(canceli);
                 canceltd.appendChild(cancelp);
+                cancelbidtd.appendChild(cancelbidp);
 
                 outer.appendChild(pIDtd);
                 outer.appendChild(pNametd);
                 outer.appendChild(pricetd);
                 outer.appendChild(canceltd);
+                outer.appendChild(cancelbidtd);
 
                 e.appendChild(outer)
 			}
@@ -189,17 +200,17 @@ function setDataPrevious(){
                 let canceltd = document.createElement('td')
 
                 let pNamep = document.createElement('p');
-                pNamep.className = "tx2";
+                pNamep.className = "tx1";
                 pNamep.style.textAlign = 'center';
                 pNamep.style.color = 'black';
 
                 let pIDp = document.createElement('p');
-                pIDp.className = "tx2";
+                pIDp.className = "tx1";
                 pIDp.style.textAlign = 'center';
                 pIDp.style.color = 'black';
 
                 let pricep = document.createElement('p');
-                pricep.className = "tx2";
+                pricep.className = "tx1";
                 pricep.style.textAlign = 'center';
                 pricep.style.color = 'black';
 
@@ -224,10 +235,7 @@ function setDataPrevious(){
 
 async function  getId(element) {
     var temp = document.getElementById('pid'+String(element.parentElement.parentElement.parentElement.rowIndex-1));
-    console.log(temp.innerText)
     var pid = temp.innerText
-    url = "http://localhost:3000/farmerProduct/itemupdate/"+String(pid);
-    console.log(url);
     await fetch(`http://localhost:3000/farmerProduct/itemupdate/${pid}`,{
          method: 'post',
         headers: {
@@ -241,4 +249,25 @@ async function  getId(element) {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }})
+    alert('Bid Closed');
+}
+
+async function  deleteId(element) {
+    var temp = document.getElementById('pid'+String(element.parentElement.parentElement.parentElement.rowIndex-1));
+    var pid = temp.innerText
+    await fetch(`http://localhost:3000/farmerProduct/itemdelete/${pid}`,{
+         method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }})
+
+    await fetch(`http://localhost:3000/farmerCurrentBid/itemdelete/${pid}`,{
+         method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }})
+
+    alert('Bid Deleted');
 }

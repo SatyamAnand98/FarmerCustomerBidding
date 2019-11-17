@@ -30,4 +30,5 @@ function dataRetreival(){
     .then((res)=>{
     console.log(res);
     });
+    alert('Signup Successful');
 }
