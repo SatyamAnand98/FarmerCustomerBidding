@@ -35,7 +35,7 @@ router.post('/itempost',(req, res, next)=>{
         }
         else{
             console.log("successfully yay!!");
-            // msg(newItem.Phone, newItem.BidPlaced, newItem.Fphn, newItem.Name, newItem.ProductName);
+            msg(newItem.Phone, newItem.BidPlaced, newItem.Fphn, newItem.Name, newItem.ProductName);
             res.json({msg: 'hurray!! item added successfully'});
         }
     });

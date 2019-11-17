@@ -35,6 +35,7 @@ router.post('/itempost',(req, res, next)=>{
 
 router.post('/itemupdate/:id', (req,res,next)=>{
     Item.findOneAndUpdate(
+        {_id: req.params.id},
         {
          $set:{
             ProductName: req.body.ProductName,
