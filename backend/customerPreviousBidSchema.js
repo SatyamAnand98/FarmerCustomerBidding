@@ -9,6 +9,10 @@ const itemSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    cid:{
+        type: String,
+        required: true
+    },
     Price:{
         type: Number,
         required: true

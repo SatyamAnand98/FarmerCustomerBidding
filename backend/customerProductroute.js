@@ -43,16 +43,10 @@ router.post('/itempost',(req, res, next)=>{
 
 router.post('/itemupdate/:id', (req,res,next)=>{
     Item.findOneAndUpdate(
-        {_id: req.params.id},
+        {Pid: req.params.id},
         {
          $set:{
-            Pid:req.body.Pid,
-            ProductName: req.body.ProductName,
-            Name: req.body.Name,
-            Email: req.body.Email,
-            Phone: req.body.Phone,
-            BidPlaced: req.body.BidPlaced,
-            BidObtained:req.body.BidObtained
+            __v:1
         }},
         (err, result)=>{
             if(err){

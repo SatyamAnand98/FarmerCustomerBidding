@@ -20,6 +20,7 @@ router.post('/itempost',(req, res, next)=>{
     let newItem = new Item({
         ProductName: req.body.ProductName,
         _id: req.body._id,
+        cid: req.body.cid,
         Price: req.body.Price
     });
     newItem.save((err)=>{
