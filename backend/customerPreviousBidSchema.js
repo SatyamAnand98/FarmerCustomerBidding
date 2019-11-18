@@ -5,6 +5,10 @@ const itemSchema = mongoose.Schema({
         type:String,
         required: true
     },
+    Pid:{
+        type:String,
+        required: true
+    },
     _id:{
         type: String,
         required: true

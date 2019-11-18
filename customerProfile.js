@@ -1,7 +1,7 @@
 let CID = localStorage.getItem('CustomerID');
 let obj1;
 let cemail;
-let cid;
+let cide;
 
 function getData(){
 
@@ -10,7 +10,6 @@ function getData(){
     .then(data => retreive(data))
 
     function retreive(vals){
-        console.log(vals)
 
         for(let i = 0;i < vals.length;i++){
             let obj = vals[i];
@@ -18,26 +17,24 @@ function getData(){
                 document.getElementById("nam").innerText ="Name: " + obj.Name;
                 document.getElementById("ph").innerText ="Phone: +91-" + obj.Phone;
                 document.getElementById("em").innerText ="Email: " + obj.Email;
-                cid = obj._id
                 cemail = obj.Email;
-                console.log('Email hai ', cemail);
+
 
                 fetch('http://localhost:3000/customerProduct/item')
                 .then(response => response.json())
                 .then(data => currentBid(data))
 
                 function currentBid(val){
-                    console.log(val)
 
                     for(let j = 0;j<val.length;j++){
                         obj1 = val[j];
 
                         if((cemail === obj1.Email) && (obj1.__v === 0)){
-                            // alert(obj1.ProductName)
+                            cide = obj1._id;
                             forCurrent();
                         }
                         else if((cemail === obj1.Email) && (obj1.__v === 1)){
-                            // alert('Previous ma jayega ' + obj1.ProductName)
+                            cide = obj1._id;
                             forPrevious();
                         }
                     }
@@ -57,8 +54,9 @@ function forCurrent(){
             },
         body: JSON.stringify({
             ProductName: obj1.ProductName,
-            _id: obj1.Pid,
-            cid: cid,
+            Pid: obj1.Pid,
+            _id: cide,
+            cid: CID,
             Price: obj1.BidPlaced
         })
     })
@@ -67,7 +65,6 @@ function forCurrent(){
 }
 
 function setDataCurrent(){
-
     fetch('http://localhost:3000/customerCurrentBid/item')
     .then(res => res.json())
     .then(data => transfer(data))
@@ -95,7 +92,7 @@ function setDataCurrent(){
         var c = 0;
         for( let i = 0;i<gain.length;i++){
             let obj = gain[i];
-            if(CID === cid){
+            if(CID === obj.cid){
 
 
                 let outer = document.createElement('tr');
@@ -154,13 +151,14 @@ function forPrevious(){
             },
         body: JSON.stringify({
             ProductName: obj1.ProductName,
-            _id: obj1.Pid,
-            cid: cid,
+            Pid: obj1.Pid,
+            _id: cide,
+            cid: CID,
             Price: obj1.BidPlaced
         })
     })
-    .then((res) =>{;
-    });
+    // .then((res) =>{;
+    // });
 }
 
 function setDataPrevious(){

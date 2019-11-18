@@ -6,7 +6,7 @@ const farmerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/farmerprod
 const customerproduct = "/home/stoneduser/Desktop/FarmerCustomerBidding/customerProfile.html";
 
 
-function redirectFarmerProduct(){
+async function redirectFarmerProduct(){
     farmerUser = document.getElementById("Funame").value;
     farmerPwd = document.getElementById("Fpwd").value;
     let FarmerId='';
@@ -14,11 +14,10 @@ function redirectFarmerProduct(){
     let data2;
 
     fetch('http://localhost:3000/farmerLogin/item')
-        .then(response => response.json())
-        .then(data => data2 = data)
-        .then(() => transferfarmer(data2))
-
+    .then(response => response.json())
+    .then(data => transferfarmer(data))
     function transferfarmer(val){
+        console.log(val.length)
         for(let i = 0; i < val.length; i++) {
             let obj = val[i];
             if(obj.Email === farmerUser){
